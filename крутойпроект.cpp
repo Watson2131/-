@@ -35,12 +35,12 @@ void registration(vector<User>& users, int& nextId) {
 
         cout << "Придумайте имя: ";
         cin >> name;
-        if(name == "Y") {
+        if(name == "Y" || name == "y") {
             break;
         }
         cout << "Придумайте пароль: ";
         cin >> pass;
-        if(pass == "Y") {
+        if(pass == "Y" || pass == "y") {
             break;
         }
         cout << "Введите возраст: ";
@@ -108,8 +108,9 @@ void menu2() {
 int main() {
     vector<User> users;
     int nextId = 0;
-
-    menu(users, nextId);
-
+    
+    while(true) {
+        menu(users, nextId);
+    }
     return 0;
 }
