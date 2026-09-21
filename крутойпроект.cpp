@@ -111,9 +111,5 @@ int main() {
 
     menu(users, nextId);
 
-    while(true) {
-        menu2();
-    }
-
     return 0;
 }
