@@ -187,6 +187,9 @@ int main() {
             break;
         }
     }
-    menu2(users, currentUser);
+    while (true) {
+        menu2(users, currentUser);
+    }
+
     return 0;
 }
