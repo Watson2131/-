@@ -60,7 +60,7 @@ bool registration(vector<User>& users, int& nextId) {
     }
 }
 
-void menu(vector<User>& users, int& nextId) {
+bool menu(vector<User>& users, int& nextId) {
     int choice;
 
     // -------АВТОРИЗАЦИЯ-------
@@ -76,8 +76,10 @@ void menu(vector<User>& users, int& nextId) {
     // ---Система меню авторизации---
     switch (choice) {
     case 1:
-        registration(users, nextId);
-        break;
+        if (registration(users, nextId)) {
+            return true;
+        }
+    break;
     case 2:
         break;
     case 3:
@@ -112,7 +114,6 @@ int main() {
 
     while (true) {
         setlocale(LC_ALL, "Russian");
-        menu(users, nextId);
         if (menu(users, nextId)) {
             break;
         }
