@@ -11,6 +11,7 @@
 - **Админ‑панель** — открывается при входе под `admin` / `12344321`.
 - **Меню пользователя** — лента, профиль, поиск, друзья, посты, уведомления, настройки и выход.
 - **Русский текст в консоли Windows** — приложение переключает консоль в кодировку UTF‑8 (`SetConsoleOutputCP`).
+- **Абстракция страниц** — каждый экран (меню, вход, регистрация, админ‑панель) — это класс‑наследник `Page` из `include/page.h`; переходы между экранами делаются через `next()`, цикл страниц запускается функцией `runPages()`.
 
 ## Требования
 
@@ -26,13 +27,13 @@
 Клавиша **Ctrl+Shift+B** в VS Code (задача «Сборка coolproject (static)»):
 
 ```
-C:\msys64\ucrt64\bin\g++.exe -fdiagnostics-color=always -static -g coolproject.cpp -o coolproject.exe
+C:\msys64\ucrt64\bin\g++.exe -fdiagnostics-color=always -static -g -I include src\coolproject.cpp -o coolproject.exe
 ```
 
 Вручную из терминала:
 
 ```
-C:\msys64\ucrt64\bin\g++.exe -std=c++17 -g -static coolproject.cpp -o coolproject.exe
+C:\msys64\ucrt64\bin\g++.exe -std=c++17 -g -static -I include src\coolproject.cpp -o coolproject.exe
 ```
 
 > Флаг `-static` делает exe автономным — ему не нужны DLL из `C:\msys64\ucrt64\bin`.
@@ -49,7 +50,7 @@ C:\msys64\ucrt64\bin\g++.exe -std=c++17 -g -static coolproject.cpp -o coolprojec
 
 ## Отладка в VS Code
 
-1. Откройте `coolproject.cpp`.
+1. Откройте `src/coolproject.cpp`.
 2. Поставьте точку останова.
 3. Нажмите **F5** — сначала выполнится задача сборки, затем стартует gdb
    с pretty-printing (`-enable-pretty-printing`).
@@ -63,9 +64,18 @@ C:\msys64\ucrt64\bin\g++.exe -std=c++17 -g -static coolproject.cpp -o coolprojec
 ## Структура проекта
 
 ```
-coolproject.cpp     — исходный код проекта (в одном файле)
-textpassword        — хранилище логина и пароля
-.vscode/            — настройки IntelliSense, сборки и отладки
-README.md           — описание проекта
-CHANGELOG.md        — история изменений
+src/coolproject.cpp        — точка входа: main() (создание и связка страниц)
+include/page.h             — абстракция страницы (Page) и цикл runPages()
+include/appstate.h         — общие данные приложения (AppState)
+include/pages.h            — связка всех страниц (Pages)
+include/admin_page.h       — страница «Админ-панель»
+include/login_page.h       — страница «Вход»
+include/registration_page.h — страница «Регистрация»
+include/main_menu_page.h   — страница «Главное меню»
+include/user_menu_page.h   — страница «Меню пользователя»
+include/coolproject.h      — структура User
+textpassword               — хранилище логина и пароля
+.vscode/                   — настройки IntelliSense, сборки и отладки
+README.md                  — описание проекта
+CHANGELOG.md               — история изменений
 ```
