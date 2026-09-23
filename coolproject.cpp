@@ -3,6 +3,9 @@
 #include <vector>
 #include <limits>
 #include <fstream>
+#ifdef _WIN32
+#include <windows.h>
+#endif
 using namespace std;
 
 struct User {
@@ -177,6 +180,12 @@ void menu2(vector<User>& users, User& user) {
 
 
 int main() {
+#ifdef _WIN32
+    // текст в кодировке UTF-8 (Windows 10+).
+    // Без этого русские строки в консоли Windows отображаются хреново.
+    SetConsoleCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8);
+#endif
 
     vector<User> users;
     User currentUser(0, "", 0, "");
